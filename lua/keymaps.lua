@@ -1,6 +1,6 @@
 vim.g.mapleader = " "
 
-vim.keymap.set("n", "<leader>re", "<cmd>restart<cr>", { desc = "Restart config :restart)" })
+vim.keymap.set("n", "<leader>re", "<cmd>restart<cr>", { desc = "Restart configuration" })
 
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
 vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })
@@ -34,5 +34,4 @@ vim.keymap.set("n", "<leader>f", function() vim.lsp.buf.format({ async = true })
 
 vim.keymap.set("n", "<leader>tv", ":vsplit | terminal<CR>", { desc = "Open terminal vertically" })
 vim.keymap.set("n", "<leader>th", ":split | terminal<CR>", { desc = "Open terminal horizontally" })
-
 
