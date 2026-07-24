@@ -88,6 +88,7 @@ function CustomStatusLine()
   if is_git == "true" then
     git_icon = devicons.get_icon("", "diff")
     git_branch = git_icon .. " " .. vim.fn.system("git branch --show-current")
+    git_branch = string.gsub(git_branch, "%c", "")
   end
 
   return string.format(" %s%%f %%m %s %%= %%l:%%c ", icon, git_branch)
