@@ -35,3 +35,5 @@ vim.keymap.set("n", "<leader>f", function() vim.lsp.buf.format({ async = true })
 vim.keymap.set("n", "<leader>tv", ":vsplit | terminal<CR>", { desc = "Open terminal vertically" })
 vim.keymap.set("n", "<leader>th", ":split | terminal<CR>", { desc = "Open terminal horizontally" })
 
+vim.keymap.set("n", "<leader>oc", ":vsplit term://opencode<CR>", { desc = "Start OpenCode" })
+
