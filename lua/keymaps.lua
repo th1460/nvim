@@ -28,12 +28,12 @@ vim.keymap.set("v", '{', 'c{<ESC>pa}', { desc = "Insert braces" })
 vim.keymap.set('n', '<leader>do', vim.lsp.buf.hover, { desc = 'LSP Hover Documentation' })
 vim.keymap.set("n", "<leader>di", vim.diagnostic.open_float, { desc = "Show line diagnostics" })
 
-vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { desc = 'Exit terminal mode' })
 
 vim.keymap.set("n", "<leader>f", function() vim.lsp.buf.format({ async = true }) end, { desc = "Format Code" })
 
 vim.keymap.set("n", "<leader>tv", ":vsplit | terminal<CR>", { desc = "Open terminal vertically" })
 vim.keymap.set("n", "<leader>th", ":split | terminal<CR>", { desc = "Open terminal horizontally" })
+vim.keymap.set('t', '<C-x>', [[<C-\><C-n>]], { desc = 'Exit terminal mode' })
 
 vim.keymap.set("n", "<leader>oc", ":vsplit term://opencode<CR>", { desc = "Start OpenCode" })
 
