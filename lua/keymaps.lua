@@ -27,7 +27,7 @@ vim.keymap.set("v", '{', 'c{<ESC>pa}', { desc = "Insert braces" })
 
 vim.keymap.set('n', '<leader>do', vim.lsp.buf.hover, { desc = 'LSP Hover Documentation' })
 vim.keymap.set("n", "<leader>di", vim.diagnostic.open_float, { desc = "Show line diagnostics" })
-
+vim.keymap.set("n", "<leader>dt", vim.diagnostic.setqflist, { desc = "Show table diagnostics" })
 
 vim.keymap.set("n", "<leader>f", function() vim.lsp.buf.format({ async = true }) end, { desc = "Format Code" })
 
