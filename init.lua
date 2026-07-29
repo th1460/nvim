@@ -12,9 +12,10 @@ vim.lsp.config.basedpyright = {
   settings = {
     basedpyright = {
       analysis = {
-        typeCheckingMode = "standard", },
+        typeCheckingMode = "off" 
+      },
     },
-  },
+  }
 }
 
 vim.lsp.enable('basedpyright')
@@ -99,4 +100,22 @@ vim.o.statusline = "%{%v:lua.CustomStatusLine()%}"
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = 'Telescope find keymaps' })
+
+vim.keymap.set('n', '<leader>st', function()
+  local current_line = vim.api.nvim_get_current_line()
+  local terminal_chan_id = nil
+
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.bo[buf].buftype == "terminal" then
+      terminal_chan_id = vim.bo[buf].channel
+      break
+    end
+  end
+
+  if terminal_chan_id and terminal_chan_id > 0 then
+    vim.fn.chansend(terminal_chan_id, current_line .. "\n")
+  else
+    vim.notify("No active terminal found", vim.log.levels.WARN)
+  end
+end, { desc = "Send current line to terminal" })
 
