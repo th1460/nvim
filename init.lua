@@ -71,6 +71,24 @@ vim.pack.add({
 vim.o.laststatus = 3
 
 function CustomStatusLine()
+  local _, devicons = pcall(require, "nvim-web-devicons")
+  
+  local is_git = vim.fn.system("git rev-parse --is-inside-work-tree 2>/dev/null")
+  is_git = vim.trim(is_git)
+  local git_branch = ""
+  local git_icon = ""
+  if is_git == "true" then
+    git_icon = devicons.get_icon("", "diff")
+    git_branch = git_icon .. " " .. vim.fn.system("git branch --show-current")
+    git_branch = string.gsub(git_branch, "%c", "")
+  end
+
+  return string.format(" %s %%= %%l:%%c ", git_branch)
+end
+
+vim.o.statusline = "%{%v:lua.CustomStatusLine()%}"
+
+function CustomWinBar()
   local filename = vim.fn.expand("%:t")
   local extension = vim.fn.expand("%:e")
   local has_devicons, devicons = pcall(require, "nvim-web-devicons")
@@ -83,20 +101,12 @@ function CustomStatusLine()
     end
   end
 
-  local is_git = vim.fn.system("git rev-parse --is-inside-work-tree 2>/dev/null")
-  is_git = vim.trim(is_git)
-  local git_branch = ""
-  local git_icon = ""
-  if is_git == "true" then
-    git_icon = devicons.get_icon("", "diff")
-    git_branch = git_icon .. " " .. vim.fn.system("git branch --show-current")
-    git_branch = string.gsub(git_branch, "%c", "")
-  end
-
-  return string.format(" %s%%f %%m %s %%= %%l:%%c ", icon, git_branch)
+  return string.format(" %s%%f %%m %%= %%l:%%c ", icon)
 end
 
-vim.o.statusline = "%{%v:lua.CustomStatusLine()%}"
+vim.o.winbar = "%{%v:lua.CustomWinBar()%}"
+
+
 
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
@@ -120,3 +130,8 @@ vim.keymap.set('n', '<leader>st', function()
   end
 end, { desc = "Send current line to terminal" })
 
+require("catppuccin").setup({
+    flavour = "frappe"
+}
+)
+vim.cmd.colorscheme("catppuccin-nvim")

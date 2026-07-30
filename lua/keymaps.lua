@@ -38,3 +38,5 @@ vim.keymap.set('t', '<C-x>', [[<C-\><C-n>]], { desc = 'Exit terminal mode' })
 vim.keymap.set("n", "<leader>oc", ":vsplit term://opencode<CR>", { desc = "Start OpenCode" })
 vim.keymap.set("n", "<leader>bo", ":vsplit term://bob<CR>", { desc = "Start Bob" })
 
+vim.keymap.set("n", "<leader>u", function() vim.cmd.packadd("nvim.undotree") require("undotree").open() end, { desc = "Toggle Builtin Undotree" })
+

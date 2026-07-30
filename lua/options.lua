@@ -1,7 +1,5 @@
 vim.g.netrw_banner = 0
 
-vim.cmd.colorscheme("catppuccin")
-
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
@@ -14,6 +12,11 @@ vim.opt.expandtab = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.laststatus = 3
+
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undodir = vim.fn.stdpath("data") .. "/undodir"
+vim.opt.undofile = true
 
 vim.opt.colorcolumn = "0"
 vim.opt.signcolumn = "yes"
