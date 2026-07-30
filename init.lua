@@ -83,7 +83,10 @@ function CustomStatusLine()
     git_branch = string.gsub(git_branch, "%c", "")
   end
 
-  return string.format(" %s %%= %%l:%%c ", git_branch)
+  local errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+  local warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+
+  return string.format(" %s E:%d W:%d %%= %%l:%%c ", git_branch, errors, warnings)
 end
 
 vim.o.statusline = "%{%v:lua.CustomStatusLine()%}"
@@ -101,12 +104,10 @@ function CustomWinBar()
     end
   end
 
-  return string.format(" %s%%f %%m %%= %%l:%%c ", icon)
+  return string.format(" %s%%f %%m ", icon)
 end
 
 vim.o.winbar = "%{%v:lua.CustomWinBar()%}"
-
-
 
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
