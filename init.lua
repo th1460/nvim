@@ -64,7 +64,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 vim.pack.add({
   { src = 'https://github.com/nvim-tree/nvim-web-devicons' },
   { src = 'https://github.com/nvim-telescope/telescope.nvim' },
-  { src = 'https://github.com/nvim-lua/plenary.nvim' }
+  { src = 'https://github.com/nvim-lua/plenary.nvim' },
+  { src = 'https://github.com/catppuccin/nvim'}
 })
 
 vim.o.laststatus = 3

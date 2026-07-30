@@ -36,4 +36,5 @@ vim.keymap.set("n", "<leader>th", ":split | terminal<CR>", { desc = "Open termin
 vim.keymap.set('t', '<C-x>', [[<C-\><C-n>]], { desc = 'Exit terminal mode' })
 
 vim.keymap.set("n", "<leader>oc", ":vsplit term://opencode<CR>", { desc = "Start OpenCode" })
+vim.keymap.set("n", "<leader>bo", ":vsplit term://bob<CR>", { desc = "Start Bob" })
 

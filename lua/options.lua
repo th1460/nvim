@@ -1,5 +1,7 @@
 vim.g.netrw_banner = 0
 
+vim.cmd.colorscheme("catppuccin")
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
