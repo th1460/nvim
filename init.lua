@@ -78,15 +78,17 @@ function CustomStatusLine()
   local git_branch = ""
   local git_icon = ""
   if is_git == "true" then
-    git_icon = devicons.get_icon("", "diff")
+    git_icon = devicons.get_icon("", "git")
     git_branch = git_icon .. " " .. vim.fn.system("git branch --show-current")
-    git_branch = string.gsub(git_branch, "%c", "")
+    git_branch = " " .. string.gsub(git_branch, "%c", "") .. " "
   end
 
   local errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
   local warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
 
-  return string.format(" %s E:%d W:%d %%= %%l:%%c ", git_branch, errors, warnings)
+  vim.api.nvim_set_hl(0, "Git", { bg = "#232634" })
+
+  return table.concat({ "%#Git#", git_branch, "%*", string.format(" E:%d W:%d %%= %%l:%%c %s", errors, warnings, "%p%%") })
 end
 
 vim.o.statusline = "%{%v:lua.CustomStatusLine()%}"
