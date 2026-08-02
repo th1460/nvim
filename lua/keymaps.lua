@@ -40,4 +40,3 @@ vim.keymap.set("n", "<leader>bo", ":vsplit term://bob<CR>", { desc = "Start Bob"
 
 vim.keymap.set("n", "<leader>u", function() vim.cmd.packadd("nvim.undotree") require("undotree").open() end, { desc = "Toggle Builtin Undotree" })
 
-vim.keymap.set("n", "<leader>p", function() print("  \u{2b91}  " .. vim.fn.fnamemodify(vim.fn.getcwd(), ':t')) end, { desc = "Show project name" })
