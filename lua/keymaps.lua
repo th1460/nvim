@@ -35,8 +35,16 @@ vim.keymap.set("n", "<leader>tv", ":vsplit | terminal<CR>", { desc = "Open termi
 vim.keymap.set("n", "<leader>th", ":split | terminal<CR>", { desc = "Open terminal horizontally" })
 vim.keymap.set('t', '<C-x>', [[<C-\><C-n>]], { desc = 'Exit terminal mode' })
 
-vim.keymap.set("n", "<leader>oc", ":vsplit term://opencode<CR>", { desc = "Start OpenCode" })
-vim.keymap.set("n", "<leader>bo", ":vsplit term://bob<CR>", { desc = "Start Bob" })
+vim.keymap.set("n", "<leader>ov", ":vsplit term://opencode<CR>", { desc = "Start OpenCode" })
+vim.keymap.set("n", "<leader>oh", ":split term://opencode<CR>", { desc = "Start OpenCode vertically" })
+vim.keymap.set("n", "<leader>bv", ":vsplit term://bob<CR>", { desc = "Start Bob" })
+vim.keymap.set("n", "<leader>bh", ":split term://bob<CR>", { desc = "Start Bob horizontally" })
 
 vim.keymap.set("n", "<leader>u", function() vim.cmd.packadd("nvim.undotree") require("undotree").open() end, { desc = "Toggle Builtin Undotree" })
+
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll half page down and center" })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll half page up and center" })
+
+vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result (centered)" })
+vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search result (centered)" })
 

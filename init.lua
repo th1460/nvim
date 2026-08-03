@@ -30,8 +30,7 @@ vim.api.nvim_create_autocmd("FileType", {
       settings = {
         basedpyright = {
           analysis = {
-            typeCheckingMode = "basic", diagnosticMode = "openFilesOnly",
-            useLibraryCodeForTypes = true,
+            typeCheckingMode = "off", 
           },
         },
       },
@@ -151,3 +150,8 @@ vim.api.nvim_create_autocmd('WinLeave', {
   command = 'setlocal nocursorline',
 })
 
+vim.api.nvim_create_autocmd("TextYankPost", {
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+})
