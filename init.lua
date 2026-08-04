@@ -155,3 +155,20 @@ vim.api.nvim_create_autocmd("TextYankPost", {
         vim.highlight.on_yank()
     end,
 })
+
+vim.api.nvim_set_hl(0, "NormalNC", { bg = "#424657" })
+local group = vim.api.nvim_create_augroup("WindowHighlight", { clear = true })
+
+vim.api.nvim_create_autocmd("WinEnter", {
+  group = group,
+  callback = function()
+    vim.wo.winhighlight = ""
+  end,
+})
+
+vim.api.nvim_create_autocmd("WinLeave", {
+  group = group,
+  callback = function()
+    vim.wo.winhighlight = "Normal:NormalNC"
+  end,
+})
