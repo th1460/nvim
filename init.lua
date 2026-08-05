@@ -156,7 +156,8 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end,
 })
 
-vim.api.nvim_set_hl(0, "NormalNC", { bg = "#424657" })
+vim.api.nvim_set_hl(0, "NormalNC", { bg = "#414559" })
+vim.api.nvim_set_hl(0, "WinBarNC", { bg = "#414559" })
 local group = vim.api.nvim_create_augroup("WindowHighlight", { clear = true })
 
 vim.api.nvim_create_autocmd("WinEnter", {
@@ -169,6 +170,9 @@ vim.api.nvim_create_autocmd("WinEnter", {
 vim.api.nvim_create_autocmd("WinLeave", {
   group = group,
   callback = function()
-    vim.wo.winhighlight = "Normal:NormalNC"
+    vim.wo.winhighlight = "Normal:NormalNC,WinBar:WinBarNC"
   end,
 })
+
+vim.api.nvim_set_hl(0, "MsgArea", { bg = "#303446" })
+
