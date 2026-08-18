@@ -64,7 +64,10 @@ vim.pack.add({
   { src = 'https://github.com/nvim-tree/nvim-web-devicons' },
   { src = 'https://github.com/nvim-telescope/telescope.nvim' },
   { src = 'https://github.com/nvim-lua/plenary.nvim' },
-  { src = 'https://github.com/catppuccin/nvim'}
+  { src = 'https://github.com/catppuccin/nvim' },
+  { src = 'https://github.com/quarto-dev/quarto-nvim' },
+  { src = 'https://github.com/jmbuhr/otter.nvim' },
+  { src = 'https://github.com/nvim-treesitter/nvim-treesitter' }
 })
 
 vim.o.laststatus = 3
@@ -175,4 +178,18 @@ vim.api.nvim_create_autocmd("WinLeave", {
 })
 
 vim.api.nvim_set_hl(0, "MsgArea", { bg = "#303446" })
+
+local quarto = require('quarto')
+quarto.setup()
+vim.keymap.set('n', '<leader>qp', quarto.quartoPreview, { silent = true, noremap = true })
+
+local function git_diff()
+  vim.cmd('split | term git difftool %')
+  vim.cmd('startinsert')
+  vim.wo.statusline = ' '
+  vim.wo.winbar = ' '
+end
+
+vim.api.nvim_create_user_command('GitDiff', git_diff, {})
+vim.keymap.set('n', '<leader>gd', ':GitDiff<CR>', { desc = 'Git Diff' })
 
