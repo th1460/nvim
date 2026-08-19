@@ -117,8 +117,9 @@ local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = 'Telescope find keymaps' })
 
-vim.keymap.set('n', '<leader>st', function()
-  local current_line = vim.api.nvim_get_current_line()
+vim.keymap.set('v', '<leader>st', function()
+  local mode = vim.api.nvim_get_mode().mode
+  local selection = vim.fn.getregion(vim.fn.getpos("."), vim.fn.getpos("v"), { type = mode })
   local terminal_chan_id = nil
 
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
@@ -129,7 +130,7 @@ vim.keymap.set('n', '<leader>st', function()
   end
 
   if terminal_chan_id and terminal_chan_id > 0 then
-    vim.fn.chansend(terminal_chan_id, current_line .. "\n")
+    vim.fn.chansend(terminal_chan_id, table.concat(selection, "\n") .. "\n")
   else
     vim.notify("No active terminal found", vim.log.levels.WARN)
   end
