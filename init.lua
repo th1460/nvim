@@ -5,6 +5,7 @@ require("keymaps")
 
 vim.lsp.enable('ruff')
 
+-- Basedpyright config
 vim.lsp.config.basedpyright = {
   cmd = { 'basedpyright-langserver', '--stdio' },
   filetypes = { 'python' },
@@ -60,6 +61,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
+-- Packages
 vim.pack.add({
   { src = 'https://github.com/nvim-tree/nvim-web-devicons' },
   { src = 'https://github.com/nvim-telescope/telescope.nvim' },
@@ -70,6 +72,7 @@ vim.pack.add({
   { src = 'https://github.com/nvim-treesitter/nvim-treesitter' }
 })
 
+-- Custom statusline 
 vim.o.laststatus = 3
 
 function CustomStatusLine()
@@ -95,6 +98,7 @@ end
 
 vim.o.statusline = "%{%v:lua.CustomStatusLine()%}"
 
+-- Custom window bar
 function CustomWinBar()
   local filename = vim.fn.expand("%:t")
   local extension = vim.fn.expand("%:e")
@@ -113,10 +117,12 @@ end
 
 vim.o.winbar = "%{%v:lua.CustomWinBar()%}"
 
+-- Telescope config
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = 'Telescope find keymaps' })
 
+-- Send selection to terminal
 vim.keymap.set('v', '<leader>st', function()
   local mode = vim.api.nvim_get_mode().mode
   local selection = vim.fn.getregion(vim.fn.getpos("."), vim.fn.getpos("v"), { type = mode })
@@ -136,12 +142,21 @@ vim.keymap.set('v', '<leader>st', function()
   end
 end, { desc = "Send current line to terminal" })
 
+-- Catppuccin config   
 require("catppuccin").setup({
     flavour = "frappe"
 }
 )
 vim.cmd.colorscheme("catppuccin-nvim")
 
+-- Yank highlight
+vim.api.nvim_create_autocmd("TextYankPost", {
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+})
+
+-- Highlight active window and cursor
 local group = vim.api.nvim_create_augroup('WinHighlight', { clear = true })
 
 vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, {
@@ -152,12 +167,6 @@ vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, {
 vim.api.nvim_create_autocmd('WinLeave', {
   group = group,
   command = 'setlocal nocursorline',
-})
-
-vim.api.nvim_create_autocmd("TextYankPost", {
-    callback = function()
-        vim.highlight.on_yank()
-    end,
 })
 
 vim.api.nvim_set_hl(0, "NormalNC", { bg = "#414559" })
@@ -180,10 +189,12 @@ vim.api.nvim_create_autocmd("WinLeave", {
 
 vim.api.nvim_set_hl(0, "MsgArea", { bg = "#303446" })
 
+-- Quarto config
 local quarto = require('quarto')
 quarto.setup()
 vim.keymap.set('n', '<leader>qp', quarto.quartoPreview, { silent = true, noremap = true })
 
+-- Git difftool integration
 local function git_diff()
   vim.cmd('split | term git difftool %')
   vim.cmd('startinsert')
@@ -193,3 +204,21 @@ end
 
 vim.api.nvim_create_user_command('GitDiff', git_diff, {})
 vim.keymap.set('n', '<leader>gd', ':GitDiff<CR>', { desc = 'Git Diff' })
+
+-- Notify when a file is automatically reloaded
+vim.api.nvim_create_autocmd("FileChangedShellPost", {
+  pattern = "*",
+  callback = function()
+    vim.notify("File changed on disk.", vim.log.levels.INFO)
+  end,
+})
+
+-- Automatically trigger the check
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold" }, {
+  pattern = "*",
+  callback = function()
+    if vim.fn.getcmdwintype() == "" then
+      vim.cmd("checktime")
+    end
+  end,
+})
