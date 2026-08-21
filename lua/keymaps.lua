@@ -9,10 +9,10 @@ vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
 
 vim.keymap.set("n", "<leader>sv", ":vsplit<CR>", { desc = "Split window vertically" })
 vim.keymap.set("n", "<leader>sh", ":split<CR>", { desc = "Split window horizontally" })
-vim.keymap.set("n", "<leader>wh", ":resize +2<CR>", { desc = "Increase window height" })
-vim.keymap.set("n", "<leader>nh", ":resize -2<CR>", { desc = "Decrease window height" })
-vim.keymap.set("n", "<leader>n", ":vertical resize -2<CR>", { desc = "Decrease window width" })
-vim.keymap.set("n", "<leader>w", ":vertical resize +2<CR>", { desc = "Increase window width" })
+vim.keymap.set("n", "<leader>wh", ":resize +4<CR>", { desc = "Increase window height" })
+vim.keymap.set("n", "<leader>nh", ":resize -4<CR>", { desc = "Decrease window height" })
+vim.keymap.set("n", "<leader>n", ":vertical resize -4<CR>", { desc = "Decrease window width" })
+vim.keymap.set("n", "<leader>w", ":vertical resize +4<CR>", { desc = "Increase window width" })
 
 vim.keymap.set("n", "J", ":m .+1<CR>==", { desc = "Move line down" })
 vim.keymap.set("n", "K", ":m .-2<CR>==", { desc = "Move line up" })
@@ -31,8 +31,8 @@ vim.keymap.set("n", "<leader>dt", vim.diagnostic.setqflist, { desc = "Show table
 
 vim.keymap.set("n", "<leader>f", function() vim.lsp.buf.format({ async = true }) end, { desc = "Format Code" })
 
-vim.keymap.set("n", "<leader>tv", ":vsplit | terminal<CR>", { desc = "Open terminal vertically" })
-vim.keymap.set("n", "<leader>th", ":split | terminal<CR>", { desc = "Open terminal horizontally" })
+vim.keymap.set("n", "<leader>tv", ":vertical terminal<CR>", { desc = "Open terminal vertically" })
+vim.keymap.set("n", "<leader>th", ":horizontal terminal<CR>", { desc = "Open terminal horizontally" })
 vim.keymap.set('t', '<C-x>', [[<C-\><C-n>]], { desc = 'Exit terminal mode' })
 
 vim.keymap.set("n", "<leader>ov", ":vsplit term://opencode<CR>", { desc = "Start OpenCode" })
@@ -48,3 +48,10 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll half page up and center
 vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result (centered)" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search result (centered)" })
 
+vim.keymap.set("n", "<leader>py", ":vsplit | terminal python3<CR>", { desc = "Open Python" })
+vim.keymap.set("n", "<leader>rp", ":vsplit | terminal python3 %<CR>", { desc = "Run Python" })
+
+vim.keymap.set("n", "<leader>mh", "<C-W>H", { desc = "Move window to left" })
+vim.keymap.set("n", "<leader>ml", "<C-W>L", { desc = "Move window to right" })
+vim.keymap.set("n", "<leader>mk", "<C-W>K", { desc = "Move window to top" })
+vim.keymap.set("n", "<leader>mj", "<C-W>J", { desc = "Move window to bottom" })

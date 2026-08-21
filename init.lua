@@ -140,7 +140,7 @@ vim.keymap.set('v', '<leader>st', function()
   else
     vim.notify("No active terminal found", vim.log.levels.WARN)
   end
-end, { desc = "Send current line to terminal" })
+end, { desc = "Send current selection to terminal" })
 
 -- Catppuccin config   
 require("catppuccin").setup({
