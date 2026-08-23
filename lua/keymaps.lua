@@ -37,6 +37,7 @@ vim.keymap.set('t', '<C-x>', [[<C-\><C-n>]], { desc = 'Exit terminal mode' })
 
 vim.keymap.set("n", "<leader>ov", ":vsplit term://opencode<CR>", { desc = "Start OpenCode" })
 vim.keymap.set("n", "<leader>oh", ":split term://opencode<CR>", { desc = "Start OpenCode vertically" })
+
 vim.keymap.set("n", "<leader>bv", ":vsplit term://bob<CR>", { desc = "Start Bob" })
 vim.keymap.set("n", "<leader>bh", ":split term://bob<CR>", { desc = "Start Bob horizontally" })
 
@@ -55,3 +56,28 @@ vim.keymap.set("n", "<leader>mh", "<C-W>H", { desc = "Move window to left" })
 vim.keymap.set("n", "<leader>ml", "<C-W>L", { desc = "Move window to right" })
 vim.keymap.set("n", "<leader>mk", "<C-W>K", { desc = "Move window to top" })
 vim.keymap.set("n", "<leader>mj", "<C-W>J", { desc = "Move window to bottom" })
+
+vim.keymap.set('n', '<leader>ff', function() require('telescope.builtin').find_files() end, { desc = 'Telescope find files' })
+vim.keymap.set('n', '<leader>fk', function() require('telescope.builtin').keymaps() end, { desc = 'Telescope find keymaps' })
+
+vim.keymap.set('v', '<leader>st', function()
+  local mode = vim.api.nvim_get_mode().mode
+  local selection = vim.fn.getregion(vim.fn.getpos("."), vim.fn.getpos("v"), { type = mode })
+  local terminal_chan_id = nil
+
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.bo[buf].buftype == "terminal" then
+      terminal_chan_id = vim.bo[buf].channel
+      break
+    end
+  end
+
+  if terminal_chan_id and terminal_chan_id > 0 then
+    vim.fn.chansend(terminal_chan_id, table.concat(selection, "\n") .. "\n")
+  else
+    vim.notify("No active terminal found", vim.log.levels.WARN)
+  end
+end, { desc = "Send current selection to terminal" })
+
+vim.keymap.set('n', '<leader>qp', function() require("quarto").quartoPreview() end, { silent = true, noremap = true })
+
