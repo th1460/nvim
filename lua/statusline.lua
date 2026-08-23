@@ -1,12 +1,11 @@
 vim.o.laststatus = 3
 
 function CustomStatusLine()
-
     vim.api.nvim_set_hl(0, 'StatusNormal', { fg = '#292c3c', bg = '#8caaee', bold = true })
     vim.api.nvim_set_hl(0, 'StatusInsert', { fg = '#292c3c', bg = '#a6d189', bold = true })
     vim.api.nvim_set_hl(0, 'StatusVisual', { fg = '#292c3c', bg = '#ca9ee6', bold = true })
     vim.api.nvim_set_hl(0, 'StatusTerminal', { fg = '#292c3c', bg = '#e5c890', bold = true })
-    vim.api.nvim_set_hl(0, 'StatusDefault', { fg = '#c6d0f5', bg = '#303446' })
+    vim.api.nvim_set_hl(0, 'StatusDefault', { fg = '#c6d0f5', bg = '#292c3c' })
 
     local mode_map = {
         ['n']   = { name = ' NORMAL ', hl = '%#StatusNormal#' },
@@ -41,7 +40,8 @@ function CustomStatusLine()
     vim.api.nvim_set_hl(0, "H", { fg = "#e5c890" })
 
     return table.concat({ current.hl .. current.name .. '%#StatusDefault#', "%#Git#", git_branch, "%*", string.format(
-    " %%#E#\u{f057} %d %%#W#\u{f071} %d %%#H#\u{f0335} %d %%= %%#StatusDefault#\u{f0c9} %%l:%%c %s", errors, warnings, hints, "%p%% ") })
+        " %%#E#\u{f057} %d %%#W#\u{f071} %d %%#H#\u{f0335} %d %%= %%#StatusDefault#\u{f0c9} %%l:%%c %s", errors, warnings,
+        hints, "%p%% ") })
 end
 
 vim.o.statusline = "%{%v:lua.CustomStatusLine()%}"
