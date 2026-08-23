@@ -28,3 +28,5 @@ vim.opt.completeopt = { 'menuone', 'noselect', 'popup' }
 
 vim.opt.clipboard:append("unnamedplus")
 
+vim.opt.showmode = false
+
