@@ -81,3 +81,4 @@ end, { desc = "Send current selection to terminal" })
 
 vim.keymap.set('n', '<leader>qp', function() require("quarto").quartoPreview() end, { silent = true, noremap = true })
 
+vim.keymap.set("n", "<leader>e", ":Lexplore<CR>", { silent = true})
