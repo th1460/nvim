@@ -6,6 +6,7 @@ require("pack")
 require("statusline")
 require("winbar")
 require("git_diff")
+require("lsp")
 
 vim.lsp.enable('basedpyright')
 vim.lsp.enable('ruff')

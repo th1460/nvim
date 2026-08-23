@@ -5,6 +5,7 @@ vim.g.netrw_winsize = 25
 
 vim.opt.number = true
 vim.opt.relativenumber = true
+vim.opt.numberwidth = 4
 vim.opt.cursorline = true
 
 vim.opt.tabstop = 4
