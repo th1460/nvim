@@ -20,7 +20,7 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 
 vim.keymap.set("v", "'", "c'<ESC>pa'", { desc = "Insert single quote" })
-vim.keymap.set("v", '"', 'c"<ESC>pa"', { desc = "Insert double quote"})
+vim.keymap.set("v", '"', 'c"<ESC>pa"', { desc = "Insert double quote" })
 vim.keymap.set("v", "(", "c(<ESC>pa)", { desc = "Insert parentheses" })
 vim.keymap.set("v", '[', 'c[<ESC>pa]', { desc = "Insert brackets" })
 vim.keymap.set("v", '{', 'c{<ESC>pa}', { desc = "Insert braces" })
@@ -41,7 +41,10 @@ vim.keymap.set("n", "<leader>oh", ":split term://opencode<CR>", { desc = "Start 
 vim.keymap.set("n", "<leader>bv", ":vsplit term://bob<CR>", { desc = "Start Bob" })
 vim.keymap.set("n", "<leader>bh", ":split term://bob<CR>", { desc = "Start Bob horizontally" })
 
-vim.keymap.set("n", "<leader>u", function() vim.cmd.packadd("nvim.undotree") require("undotree").open() end, { desc = "Toggle Builtin Undotree" })
+vim.keymap.set("n", "<leader>u", function()
+    vim.cmd.packadd("nvim.undotree")
+    require("undotree").open()
+end, { desc = "Toggle Builtin Undotree" })
 
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll half page down and center" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll half page up and center" })
@@ -57,28 +60,30 @@ vim.keymap.set("n", "<leader>ml", "<C-W>L", { desc = "Move window to right" })
 vim.keymap.set("n", "<leader>mk", "<C-W>K", { desc = "Move window to top" })
 vim.keymap.set("n", "<leader>mj", "<C-W>J", { desc = "Move window to bottom" })
 
-vim.keymap.set('n', '<leader>ff', function() require('telescope.builtin').find_files() end, { desc = 'Telescope find files' })
-vim.keymap.set('n', '<leader>fk', function() require('telescope.builtin').keymaps() end, { desc = 'Telescope find keymaps' })
+vim.keymap.set('n', '<leader>ff', function() require('telescope.builtin').find_files() end,
+    { desc = 'Telescope find files' })
+vim.keymap.set('n', '<leader>fk', function() require('telescope.builtin').keymaps() end,
+    { desc = 'Telescope find keymaps' })
 
 vim.keymap.set('v', '<leader>st', function()
-  local mode = vim.api.nvim_get_mode().mode
-  local selection = vim.fn.getregion(vim.fn.getpos("."), vim.fn.getpos("v"), { type = mode })
-  local terminal_chan_id = nil
+    local mode = vim.api.nvim_get_mode().mode
+    local selection = vim.fn.getregion(vim.fn.getpos("."), vim.fn.getpos("v"), { type = mode })
+    local terminal_chan_id = nil
 
-  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.bo[buf].buftype == "terminal" then
-      terminal_chan_id = vim.bo[buf].channel
-      break
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        if vim.bo[buf].buftype == "terminal" then
+            terminal_chan_id = vim.bo[buf].channel
+            break
+        end
     end
-  end
 
-  if terminal_chan_id and terminal_chan_id > 0 then
-    vim.fn.chansend(terminal_chan_id, table.concat(selection, "\n") .. "\n")
-  else
-    vim.notify("No active terminal found", vim.log.levels.WARN)
-  end
+    if terminal_chan_id and terminal_chan_id > 0 then
+        vim.fn.chansend(terminal_chan_id, table.concat(selection, "\n") .. "\n")
+    else
+        vim.notify("No active terminal found", vim.log.levels.WARN)
+    end
 end, { desc = "Send current selection to terminal" })
 
 vim.keymap.set('n', '<leader>qp', function() require("quarto").quartoPreview() end, { silent = true, noremap = true })
 
-vim.keymap.set("n", "<leader>e", ":Lexplore<CR>", { silent = true})
+vim.keymap.set("n", "<leader>e", ":Lexplore<CR>", { silent = true })

@@ -9,6 +9,7 @@ require("git_diff")
 
 vim.lsp.enable('basedpyright')
 vim.lsp.enable('ruff')
+vim.lsp.enable('lua_ls')
 
 require("catppuccin").setup({
     flavour = "frappe"
