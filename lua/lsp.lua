@@ -50,8 +50,7 @@ for kind_name, icon in pairs(autocomplete_icons) do
 end
 
 -- Main Autocomplete Menu Colors
-vim.api.nvim_set_hl(0, "Pmenu", { bg = "#303446", fg = "#c6d0f5" })     -- Menu Background & Text
-vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#8caaee", fg = "#303446" })  -- Selected Item Highlight
-vim.api.nvim_set_hl(0, "PmenuKind", { fg = "#f4b8e4" }) -- The Column containing your new icons
-vim.api.nvim_set_hl(0, "PmenuExtra", { fg = "#a6d189" })                -- Extra details column (e.g. source/type)
-
+vim.api.nvim_set_hl(0, "Pmenu", { bg = "#303446", fg = "#c6d0f5" })    -- Menu Background & Text
+vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#8caaee", fg = "#303446" }) -- Selected Item Highlight
+vim.api.nvim_set_hl(0, "PmenuKind", { fg = "#f4b8e4" })                -- The Column containing your new icons
+vim.api.nvim_set_hl(0, "PmenuExtra", { fg = "#a6d189" })               -- Extra details column (e.g. source/type)
