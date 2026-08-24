@@ -9,11 +9,6 @@ vim.diagnostic.config({
     },
 })
 
-vim.api.nvim_set_hl(0, "DiagnosticSignError", { fg = "#e78284" })
-vim.api.nvim_set_hl(0, "DiagnosticSignWarn", { fg = "#ef9f76" })
-vim.api.nvim_set_hl(0, "DiagnosticSignInfo", { fg = "#e5c890" })
-vim.api.nvim_set_hl(0, "DiagnosticSignHint", { fg = "#81c8be" })
-
 local autocomplete_icons = {
     Text          = "\u{e64e}",
     Method        = "\u{ea8c}",
@@ -49,8 +44,13 @@ for kind_name, icon in pairs(autocomplete_icons) do
     end
 end
 
--- Main Autocomplete Menu Colors
-vim.api.nvim_set_hl(0, "Pmenu", { bg = "#303446", fg = "#c6d0f5" })    -- Menu Background & Text
-vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#8caaee", fg = "#303446" }) -- Selected Item Highlight
-vim.api.nvim_set_hl(0, "PmenuKind", { fg = "#f4b8e4" })                -- The Column containing your new icons
-vim.api.nvim_set_hl(0, "PmenuExtra", { fg = "#a6d189" })               -- Extra details column (e.g. source/type)
+vim.api.nvim_create_autocmd("ColorScheme", {
+    pattern = "*",
+    callback = function()
+        vim.api.nvim_set_hl(0, "PmenuKind", { fg = "#f4b8e4" })
+        vim.api.nvim_set_hl(0, "DiagnosticSignError", { fg = "#e78284" })
+        vim.api.nvim_set_hl(0, "DiagnosticSignWarn", { fg = "#ef9f76" })
+        vim.api.nvim_set_hl(0, "DiagnosticSignInfo", { fg = "#e5c890" })
+        vim.api.nvim_set_hl(0, "DiagnosticSignHint", { fg = "#81c8be" })
+    end,
+})
