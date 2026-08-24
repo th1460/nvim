@@ -33,15 +33,17 @@ function CustomStatusLine()
     local errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
     local warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
     local hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
+    local infos = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
 
     vim.api.nvim_set_hl(0, "Git", { bg = "#232634" })
     vim.api.nvim_set_hl(0, "E", { fg = "#e78284" })
     vim.api.nvim_set_hl(0, "W", { fg = "#ef9f76" })
     vim.api.nvim_set_hl(0, "H", { fg = "#e5c890" })
+    vim.api.nvim_set_hl(0, "I", { fg = "#81c8be" })
 
     return table.concat({ current.hl .. current.name .. '%#StatusDefault#', "%#Git#", git_branch, "%*", string.format(
-        " %%#E#\u{f057} %d %%#W#\u{f071} %d %%#H#\u{f0335} %d %%= %%#StatusDefault#\u{f0c9} %%l:%%c %s", errors, warnings,
-        hints, "%p%% ") })
+        " %%#E#\u{ea87} %d %%#W#\u{ea6c} %d %%#H#\u{f400} %d %%#I#\u{ea74} %d %%= %%#StatusDefault#\u{f0c9} %%l:%%c %s", errors, warnings,
+        hints, infos, "%p%% ") })
 end
 
 vim.o.statusline = "%{%v:lua.CustomStatusLine()%}"
