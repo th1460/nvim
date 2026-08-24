@@ -87,3 +87,8 @@ end, { desc = "Send current selection to terminal" })
 vim.keymap.set('n', '<leader>qp', function() require("quarto").quartoPreview() end, { silent = true, noremap = true })
 
 vim.keymap.set("n", "<leader>e", ":Lexplore<CR>", { silent = true })
+
+vim.keymap.set('n', '<leader>q', '<cmd>q<cr>', { desc = 'Quit window' })
+vim.keymap.set('n', '<leader>qa', '<cmd>qa<cr>', { desc = 'Quit Neovim' })
+vim.keymap.set('n', '<leader>qw', '<cmd>wqa<cr>', { desc = 'Save and Quit Neovim' })
+
