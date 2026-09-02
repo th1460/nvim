@@ -97,7 +97,7 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = { "text", "markdown", "quarto" },
   callback = function()
     vim.opt_local.spell = true
-    vim.opt_local.spelllang = "en_us"
+    vim.opt_local.spelllang = { "en_us", "pt_br" }
     vim.api.nvim_set_hl(0, "SpellBad", { undercurl = true })
 
 

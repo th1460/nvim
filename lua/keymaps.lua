@@ -96,14 +96,3 @@ vim.keymap.set('n', '<leader>qa', '<cmd>qa<cr>', { desc = 'Quit Neovim' })
 vim.keymap.set('n', '<leader>qw', '<cmd>wqa<cr>', { desc = 'Save and Quit Neovim' })
 
 vim.keymap.set('n', '<leader>o', ':only<CR>', { silent = true, desc = 'Close all other windows' })
-
-vim.keymap.set('n', '<leader>sl', function()
-    local current = vim.opt.spelllang:get()
-    if current[1] == 'en_us' then
-        vim.opt.spelllang = { 'pt_br' }
-        print("Spell language: PT BR")
-    else
-        vim.opt.spelllang = { 'en_us' }
-        print("Spell language: EN US")
-    end
-end, { desc = "Toggle spell language" })
