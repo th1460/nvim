@@ -33,3 +33,8 @@ vim.opt.completeopt = { 'menuone', 'noselect', 'popup' }
 vim.opt.clipboard:append("unnamedplus")
 
 vim.opt.showmode = false
+
+vim.opt.hidden = true
+
+vim.opt.spell = true
+vim.opt.spelllang = { "pt_br", "en_us" }

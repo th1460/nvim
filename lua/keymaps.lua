@@ -7,10 +7,10 @@ vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })
 vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to top window" })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
 
-vim.keymap.set("n", "<leader>sv", ":vsplit<CR>", { desc = "Split window vertically" })
-vim.keymap.set("n", "<leader>sh", ":split<CR>", { desc = "Split window horizontally" })
-vim.keymap.set("n", "<leader>wh", ":resize +4<CR>", { desc = "Increase window height" })
-vim.keymap.set("n", "<leader>nh", ":resize -4<CR>", { desc = "Decrease window height" })
+vim.keymap.set("n", "<leader>vs", ":vsplit<CR>", { desc = "Split window vertically" })
+vim.keymap.set("n", "<leader>hs", ":split<CR>", { desc = "Split window horizontally" })
+vim.keymap.set("n", "<leader>hw", ":resize +4<CR>", { desc = "Increase window height" })
+vim.keymap.set("n", "<leader>hn", ":resize -4<CR>", { desc = "Decrease window height" })
 vim.keymap.set("n", "<leader>n", ":vertical resize -4<CR>", { desc = "Decrease window width" })
 vim.keymap.set("n", "<leader>w", ":vertical resize +4<CR>", { desc = "Increase window width" })
 
@@ -31,15 +31,15 @@ vim.keymap.set("n", "<leader>dt", vim.diagnostic.setqflist, { desc = "Show table
 
 vim.keymap.set("n", "<leader>f", function() vim.lsp.buf.format({ async = true }) end, { desc = "Format Code" })
 
-vim.keymap.set("n", "<leader>tv", ":vertical terminal<CR>", { desc = "Open terminal vertically" })
-vim.keymap.set("n", "<leader>th", ":horizontal terminal<CR>", { desc = "Open terminal horizontally" })
+vim.keymap.set("n", "<leader>vt", ":vertical terminal<CR>", { desc = "Open terminal vertically" })
+vim.keymap.set("n", "<leader>ht", ":horizontal terminal<CR>", { desc = "Open terminal horizontally" })
 vim.keymap.set('t', '<C-x>', [[<C-\><C-n>]], { desc = 'Exit terminal mode' })
 
-vim.keymap.set("n", "<leader>ov", ":vsplit term://opencode<CR>", { desc = "Start OpenCode" })
-vim.keymap.set("n", "<leader>oh", ":split term://opencode<CR>", { desc = "Start OpenCode vertically" })
+vim.keymap.set("n", "<leader>vo", ":vsplit term://opencode<CR>", { desc = "Start OpenCode" })
+vim.keymap.set("n", "<leader>ho", ":split term://opencode<CR>", { desc = "Start OpenCode vertically" })
 
-vim.keymap.set("n", "<leader>bv", ":vsplit term://bob<CR>", { desc = "Start Bob" })
-vim.keymap.set("n", "<leader>bh", ":split term://bob<CR>", { desc = "Start Bob horizontally" })
+vim.keymap.set("n", "<leader>vb", ":vsplit term://bob<CR>", { desc = "Start Bob" })
+vim.keymap.set("n", "<leader>hb", ":split term://bob<CR>", { desc = "Start Bob horizontally" })
 
 vim.keymap.set("n", "<leader>u", function()
     vim.cmd.packadd("nvim.undotree")
@@ -64,6 +64,9 @@ vim.keymap.set('n', '<leader>ff', function() require('telescope.builtin').find_f
     { desc = 'Telescope find files' })
 vim.keymap.set('n', '<leader>fk', function() require('telescope.builtin').keymaps() end,
     { desc = 'Telescope find keymaps' })
+
+
+vim.keymap.set("n", "z=", function() require 'telescope.builtin'.spell_suggest {} end, { desc = 'Spelling Suggestions' })
 
 vim.keymap.set('v', '<leader>st', function()
     local mode = vim.api.nvim_get_mode().mode
@@ -92,3 +95,15 @@ vim.keymap.set('n', '<leader>q', '<cmd>q<cr>', { desc = 'Quit window' })
 vim.keymap.set('n', '<leader>qa', '<cmd>qa<cr>', { desc = 'Quit Neovim' })
 vim.keymap.set('n', '<leader>qw', '<cmd>wqa<cr>', { desc = 'Save and Quit Neovim' })
 
+vim.keymap.set('n', '<leader>o', ':only<CR>', { silent = true, desc = 'Close all other windows' })
+
+vim.keymap.set('n', '<leader>sl', function()
+    local current = vim.opt.spelllang:get()
+    if current[1] == 'en_us' then
+        vim.opt.spelllang = { 'pt_br' }
+        print("Spell language: PT BR")
+    else
+        vim.opt.spelllang = { 'en_us' }
+        print("Spell language: EN US")
+    end
+end, { desc = "Toggle spell language" })

@@ -13,7 +13,12 @@ vim.lsp.enable('ruff')
 vim.lsp.enable('lua_ls')
 
 require("catppuccin").setup({
-    flavour = "frappe"
+    flavour = "frappe",
+    custom_highlights = function(colors)
+        return {
+            netrwTreeBar = { fg = colors.surface2 },
+        }
+    end,
 })
 vim.cmd.colorscheme("catppuccin-nvim")
 
