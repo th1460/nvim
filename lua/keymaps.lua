@@ -64,9 +64,10 @@ vim.keymap.set('n', '<leader>ff', function() require('telescope.builtin').find_f
     { desc = 'Telescope find files' })
 vim.keymap.set('n', '<leader>fk', function() require('telescope.builtin').keymaps() end,
     { desc = 'Telescope find keymaps' })
-
-
-vim.keymap.set("n", "z=", function() require 'telescope.builtin'.spell_suggest {} end, { desc = 'Spelling Suggestions' })
+vim.keymap.set("n", "z=", function() require('telescope.builtin').spell_suggest {} end,
+    { desc = 'Spelling Suggestions' })
+vim.keymap.set('n', '<leader>fb', function() require('telescope.builtin').buffers() end,
+    { desc = 'Telescope find buffers' })
 
 vim.keymap.set('v', '<leader>st', function()
     local mode = vim.api.nvim_get_mode().mode
