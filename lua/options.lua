@@ -38,3 +38,6 @@ vim.opt.hidden = true
 
 vim.opt.spell = true
 vim.opt.spelllang = { "pt_br", "en_us" }
+
+vim.opt.wrap = true
+vim.opt.linebreak = true

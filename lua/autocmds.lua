@@ -94,12 +94,15 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold" }, {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "text", "markdown", "quarto" },
-  callback = function()
-    vim.opt_local.spell = true
-    vim.opt_local.spelllang = { "en_us", "pt_br" }
-    vim.api.nvim_set_hl(0, "SpellBad", { undercurl = true })
+    pattern = { "text", "markdown", "quarto" },
+    callback = function()
+        vim.opt_local.spell = true
+        vim.opt_local.spelllang = { "en_us", "pt_br" }
+        vim.api.nvim_set_hl(0, "SpellBad", { undercurl = true })
+    end,
+})
 
-
-  end,
+vim.api.nvim_create_autocmd('TermOpen', {
+    pattern = '*',
+    command = 'setlocal nospell',
 })
