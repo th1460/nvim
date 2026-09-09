@@ -69,24 +69,34 @@ vim.keymap.set("n", "z=", function() require('telescope.builtin').spell_suggest 
 vim.keymap.set('n', '<leader>fb', function() require('telescope.builtin').buffers() end,
     { desc = 'Telescope find buffers' })
 
+
 vim.keymap.set('v', '<leader>st', function()
+    -- 1. Capture the selection immediately while still in Visual mode
     local mode = vim.api.nvim_get_mode().mode
     local selection = vim.fn.getregion(vim.fn.getpos("."), vim.fn.getpos("v"), { type = mode })
-    local terminal_chan_id = nil
 
-    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-        if vim.bo[buf].buftype == "terminal" then
-            terminal_chan_id = vim.bo[buf].channel
-            break
+    vim.ui.input({ prompt = "Send to terminal buffer number: " }, function(input)
+        if not input or input == "" then return end
+
+        local target_buf = tonumber(input)
+        if not target_buf or not vim.api.nvim_buf_is_valid(target_buf) then
+            vim.notify("Invalid buffer number: " .. tostring(input), vim.log.levels.ERROR)
+            return
         end
-    end
 
-    if terminal_chan_id and terminal_chan_id > 0 then
-        vim.fn.chansend(terminal_chan_id, table.concat(selection, "\n") .. "\n")
-    else
-        vim.notify("No active terminal found", vim.log.levels.WARN)
-    end
-end, { desc = "Send current selection to terminal" })
+        if vim.bo[target_buf].buftype ~= "terminal" then
+            vim.notify("Buffer " .. target_buf .. " is not a terminal", vim.log.levels.WARN)
+            return
+        end
+
+        local terminal_chan_id = vim.bo[target_buf].channel
+        if terminal_chan_id and terminal_chan_id > 0 then
+            vim.fn.chansend(terminal_chan_id, table.concat(selection, "\n") .. "\n")
+        else
+            vim.notify("No active channel found for buffer " .. target_buf, vim.log.levels.WARN)
+        end
+    end)
+end, { desc = "Send current selection to a specific terminal buffer" })
 
 vim.keymap.set('n', '<leader>qp', function() require("quarto").quartoPreview() end, { silent = true, noremap = true })
 
