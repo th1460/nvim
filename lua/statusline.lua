@@ -36,12 +36,13 @@ function CustomStatusLine()
     local infos = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
 
     vim.api.nvim_set_hl(0, "Git", { bg = "#232634" })
+    vim.api.nvim_set_hl(0, "N", { fg = "#a6d189" })
     vim.api.nvim_set_hl(0, "E", { fg = "#e78284" })
     vim.api.nvim_set_hl(0, "W", { fg = "#ef9f76" })
     vim.api.nvim_set_hl(0, "H", { fg = "#e5c890" })
     vim.api.nvim_set_hl(0, "I", { fg = "#81c8be" })
 
-    return table.concat({ ' \u{e62b} ', current.hl .. current.name .. '%#StatusDefault#', "%#Git#", git_branch, "%*", string.format(
+    return table.concat({ ' %#N#\u{e6ae} ', current.hl .. current.name .. '%#StatusDefault#', "%#Git#", git_branch, "%*", string.format(
         " %%#E#\u{ea87} %d %%#W#\u{ea6c} %d %%#H#\u{f400} %d %%#I#\u{ea74} %d %%= %%#StatusDefault#\u{f0c9} %%l:%%c %s", errors, warnings,
         hints, infos, "%p%% ") })
 end
