@@ -73,7 +73,7 @@ vim.keymap.set('n', '<leader>fb', function() require('telescope.builtin').buffer
     { desc = 'Telescope find buffers' })
 
 
-vim.keymap.set('v', '<leader>st', function()
+vim.keymap.set('v', '<leader>s', function()
     -- 1. Capture the selection immediately while still in Visual mode
     local mode = vim.api.nvim_get_mode().mode
     local selection = vim.fn.getregion(vim.fn.getpos("."), vim.fn.getpos("v"), { type = mode })
