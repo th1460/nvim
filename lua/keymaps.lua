@@ -74,31 +74,37 @@ vim.keymap.set('n', '<leader>fb', function() require('telescope.builtin').buffer
 
 
 vim.keymap.set('v', '<leader>s', function()
-    -- 1. Capture the selection immediately while still in Visual mode
     local mode = vim.api.nvim_get_mode().mode
     local selection = vim.fn.getregion(vim.fn.getpos("."), vim.fn.getpos("v"), { type = mode })
 
-    vim.ui.input({ prompt = "Send to terminal buffer number: " }, function(input)
-        if not input or input == "" then return end
-
-        local target_buf = tonumber(input)
-        if not target_buf or not vim.api.nvim_buf_is_valid(target_buf) then
-            vim.notify("Invalid buffer number: " .. tostring(input), vim.log.levels.ERROR)
-            return
+    local term_bufs = {}
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buftype == "terminal" then
+            local name = vim.api.nvim_buf_get_name(buf)
+            table.insert(term_bufs, { buf = buf, label = string.format("[%d] %s", buf, name) })
         end
+    end
 
-        if vim.bo[target_buf].buftype ~= "terminal" then
-            vim.notify("Buffer " .. target_buf .. " is not a terminal", vim.log.levels.WARN)
-            return
-        end
+    if #term_bufs == 0 then
+        vim.notify("No terminal buffers found", vim.log.levels.WARN)
+        return
+    end
 
-        local terminal_chan_id = vim.bo[target_buf].channel
-        if terminal_chan_id and terminal_chan_id > 0 then
-            vim.fn.chansend(terminal_chan_id, table.concat(selection, "\n") .. "\n")
-        else
-            vim.notify("No active channel found for buffer " .. target_buf, vim.log.levels.WARN)
-        end
-    end)
+    local menu = { "Choose terminal:" }
+    for i, t in ipairs(term_bufs) do
+        table.insert(menu, string.format("%d. %s", i, t.label))
+    end
+
+    local choice = vim.fn.inputlist(menu)
+    if choice < 1 or choice > #term_bufs then return end
+
+    local target_buf = term_bufs[choice].buf
+    local terminal_chan_id = vim.bo[target_buf].channel
+    if terminal_chan_id and terminal_chan_id > 0 then
+        vim.fn.chansend(terminal_chan_id, table.concat(selection, "\n") .. "\n")
+    else
+        vim.notify("No active channel found for buffer " .. target_buf, vim.log.levels.WARN)
+    end
 end, { desc = "Send current selection to a specific terminal buffer" })
 
 vim.keymap.set('n', '<leader>qp', function() require("quarto").quartoPreview() end, { silent = true, noremap = true })

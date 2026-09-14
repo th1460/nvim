@@ -106,3 +106,14 @@ vim.api.nvim_create_autocmd('TermOpen', {
     pattern = '*',
     command = 'setlocal nospell',
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "text", "markdown" },
+    callback = function()
+        vim.opt.conceallevel = 2
+        vim.opt.concealcursor = "n"
+        vim.fn.matchadd('Conceal', '^\\s*\\zs-\\ze\\s', 10, -1, { conceal = '\u{2013}' })
+        vim.fn.matchadd('Conceal', '\\[ \\ze\\]', 10, -1, { conceal = '\u{f0131}' })
+        vim.fn.matchadd('Conceal', '\\[x\\ze\\]', 10, -1, { conceal = '\u{f0135}' })
+    end,
+})
