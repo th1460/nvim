@@ -138,8 +138,8 @@ end
 vim.keymap.set('n', '<leader>z', current_buffer_to_floating_win, { desc = "Move current buffer to floating window" })
 
 local function open_floating_terminal()
-    local width = math.floor(vim.o.columns * 0.8)
-    local height = math.floor(vim.o.lines * 0.8)
+    local width = math.floor(vim.o.columns * 0.7)
+    local height = math.floor(vim.o.lines * 0.6)
 
     local row = math.floor((vim.o.lines - height) / 2)
     local col = math.floor((vim.o.columns - width) / 2)
@@ -153,7 +153,9 @@ local function open_floating_terminal()
         row = row,
         col = col,
         style = "minimal",
-        border = "rounded"
+        border = "rounded",
+        title = " Terminal ",
+        title_pos = "center"
     }
     vim.api.nvim_open_win(buf, true, opts)
     vim.fn.termopen(vim.o.shell)
