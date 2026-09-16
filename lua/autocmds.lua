@@ -113,7 +113,7 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.opt.conceallevel = 2
         vim.opt.concealcursor = "n"
         vim.fn.matchadd('Conceal', '^\\s*\\zs-\\ze\\s', 10, -1, { conceal = '\u{2013}' })
-        vim.fn.matchadd('Conceal', '\\[ \\ze\\]', 10, -1, { conceal = '\u{f0131}' })
-        vim.fn.matchadd('Conceal', '\\[x\\ze\\]', 10, -1, { conceal = '\u{f0135}' })
+        vim.fn.matchadd('Conceal', '\\-\\s\\[\\s\\]\\ze', 10, -1, { conceal = '\u{f0131}' })
+        vim.fn.matchadd('Conceal', '\\-\\s\\[x\\]\\ze', 10, -1, { conceal = '\u{f0135}' })
     end,
 })

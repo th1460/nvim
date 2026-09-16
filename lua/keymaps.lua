@@ -116,3 +116,23 @@ vim.keymap.set('n', '<leader>qa', '<cmd>qa<cr>', { desc = 'Quit Neovim' })
 vim.keymap.set('n', '<leader>qw', '<cmd>wqa<cr>', { desc = 'Save and Quit Neovim' })
 
 vim.keymap.set('n', '<leader>o', ':only<CR>', { silent = true, desc = 'Close all other windows' })
+
+
+local function current_buffer_to_floating_win()
+    local buf = vim.api.nvim_get_current_buf()
+    local width = math.floor(vim.o.columns * 0.8)
+    local height = math.floor(vim.o.lines * 0.8)
+    local row = math.floor((vim.o.lines - height) / 2)
+    local col = math.floor((vim.o.columns - width) / 2)
+    local opts = {
+        relative = "editor",
+        width = width,
+        height = height,
+        row = row,
+        col = col,
+        border = "rounded" -- Keeps visible borders
+    }
+    vim.api.nvim_open_win(buf, true, opts)
+end
+
+vim.keymap.set('n', '<leader>z', current_buffer_to_floating_win, { desc = "Move current buffer to floating window" })
