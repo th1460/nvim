@@ -163,3 +163,46 @@ local function open_floating_terminal()
 end
 
 vim.keymap.set('n', '<leader>t', open_floating_terminal, { desc = "Open floating terminal" })
+
+
+local function open_bob_inline()
+    local width = 50
+    local height = 1
+    local buf = vim.api.nvim_create_buf(false, true)
+
+    local opts = {
+        relative = "cursor",
+        row = 1,
+        col = 0,
+        width = width,
+        height = height,
+        style = "minimal",
+        border = "rounded",
+        title = " Bob Inline ",
+        title_pos = "center"
+    }
+
+    local win = vim.api.nvim_open_win(buf, true, opts)
+
+    vim.api.nvim_set_option_value("wrap", true, { win = win })
+    vim.api.nvim_set_option_value("linebreak", true, { win = win })
+
+    local function send_and_close()
+        local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+        local text = table.concat(lines, "\n")
+
+        if text ~= "" then
+            local output = vim.fn.system("bob run --format json", text)
+            local tbl_out = vim.json.decode(output)
+            print(tbl_out["last_message"])
+        end
+
+        vim.api.nvim_win_close(win, true)
+    end
+
+    vim.keymap.set("n", "<CR>", send_and_close, { buffer = buf, silent = true })
+    vim.keymap.set("n", "<Esc>", ":close<CR>", { buffer = buf, silent = true })
+end
+
+vim.api.nvim_create_user_command("BobInline", open_bob_inline, {})
+vim.keymap.set("n", "<leader>bi", open_bob_inline, { desc = "Open Bob Inline" })
