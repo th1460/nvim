@@ -154,7 +154,7 @@ local function open_floating_terminal()
         col = col,
         style = "minimal",
         border = "rounded",
-        title = " Terminal ",
+        title = " \u{f120}  Terminal ",
         title_pos = "center"
     }
     vim.api.nvim_open_win(buf, true, opts)
@@ -178,7 +178,7 @@ local function open_bob_inline()
         height = height,
         style = "minimal",
         border = "rounded",
-        title = " Bob Inline ",
+        title = " \u{ee0d}  Bob Inline ",
         title_pos = "center"
     }
 
