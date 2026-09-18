@@ -200,6 +200,8 @@ local function open_bob_inline()
         vim.api.nvim_win_close(win, true)
     end
 
+    vim.cmd("startinsert")
+
     vim.keymap.set("n", "<CR>", send_and_close, { buffer = buf, silent = true })
     vim.keymap.set("n", "<Esc>", ":close<CR>", { buffer = buf, silent = true })
 end
