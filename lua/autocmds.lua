@@ -80,7 +80,7 @@ vim.api.nvim_set_hl(0, "MsgArea", { bg = "#303446" })
 vim.api.nvim_create_autocmd("FileChangedShellPost", {
     pattern = "*",
     callback = function()
-        vim.notify("File changed on disk.", vim.log.levels.INFO)
+        vim.notify("\u{f0dc9} File changed on disk.", vim.log.levels.INFO)
     end,
 })
 

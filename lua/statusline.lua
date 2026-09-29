@@ -43,7 +43,7 @@ function CustomStatusLine()
     vim.api.nvim_set_hl(0, "I", { fg = "#81c8be" })
 
     return table.concat({ ' %#N#\u{e6ae} ', current.hl .. current.name .. '%#StatusDefault#', "%#Git#", git_branch, "%*", string.format(
-        " %%#E#\u{ea87} %d %%#W#\u{ea6c} %d %%#H#\u{f400} %d %%#I#\u{ea74} %d %%= %%#StatusDefault#\u{f0c9} %%l:%%c %s", errors, warnings,
+        " %%#E#\u{ea87} %d %%#W#\u{ea6c} %d %%#H#\u{f400} %d %%#I#\u{ea74} %d %%= %%#StatusDefault# \u{f0c9} %%l:%%c %s", errors, warnings,
         hints, infos, "%p%% ") })
 end
 
