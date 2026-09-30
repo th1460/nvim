@@ -86,7 +86,7 @@ vim.keymap.set('v', '<leader>s', function()
     end
 
     if #term_bufs == 0 then
-        vim.notify("  No terminal buffers found", vim.log.levels.WARN)
+        vim.notify("No terminal buffers found", vim.log.levels.WARN)
         return
     end
 
@@ -103,7 +103,7 @@ vim.keymap.set('v', '<leader>s', function()
     if terminal_chan_id and terminal_chan_id > 0 then
         vim.fn.chansend(terminal_chan_id, table.concat(selection, "\n") .. "\n")
     else
-        vim.notify("  No active channel found for buffer " .. target_buf, vim.log.levels.WARN)
+        vim.notify("No active channel found for buffer " .. target_buf, vim.log.levels.WARN)
     end
 end, { desc = "Send current selection to a specific terminal buffer" })
 
