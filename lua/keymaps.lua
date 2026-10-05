@@ -36,7 +36,7 @@ vim.keymap.set("n", "<leader>f", function() vim.lsp.buf.format({ async = true })
 
 vim.keymap.set("n", "<leader>vt", ":vertical terminal<CR>", { desc = "Open terminal vertically" })
 vim.keymap.set("n", "<leader>ht", ":horizontal terminal<CR>", { desc = "Open terminal horizontally" })
-vim.keymap.set('t', '<C-x>', [[<C-\><C-n>]], { desc = 'Exit terminal mode' })
+vim.keymap.set('t', '<ESC><ESC>', [[<C-\><C-n>]], { desc = 'Exit terminal mode' })
 
 vim.keymap.set("n", "<leader>vo", ":vsplit term://opencode<CR>", { desc = "Start OpenCode" })
 vim.keymap.set("n", "<leader>ho", ":split term://opencode<CR>", { desc = "Start OpenCode vertically" })
